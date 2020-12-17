@@ -1,16 +1,1 @@
-canvas {
-  display: block;
-}
-
-body {
-  margin: 100;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 100;
-}
-
-canvas {
-  border-radius : 12px;
-}
 
