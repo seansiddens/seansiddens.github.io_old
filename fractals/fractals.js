@@ -92,6 +92,8 @@ function mouseWheel(event) {
   offsetY += (mouseWorldAfterZoom.y - mouseWorldBeforeZoom.y);
 
   // console.log("offset: ", offsetX, offsetY);
+
+  return false;
 }
 
 function keyPressed() {
