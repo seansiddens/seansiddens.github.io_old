@@ -4,7 +4,6 @@ precision highp float;
 
 uniform vec2 u_resolution;
 uniform float u_time;
-uniform vec4 u_imagWindow;
 uniform vec2 u_offset;
 uniform vec2 u_scale;
                           
@@ -24,15 +23,7 @@ float map(float value, float inMin, float inMax, float outMin, float outMax) {
 vec2 screenToWorld() {
     vec2 st = gl_FragCoord.xy / 2.0 / u_resolution; // screen coords
 
-    float aspectRatio = u_resolution.x / u_resolution.y;
-    // screen coords mapped to imaginary plane
-    vec2 imagCoords = vec2(map(st.x, 0.0, 1.0, -2.5, 1.0),
-                           map(st.y, 0.0, 1.0, -(3.5 / aspectRatio / 2.0), 3.5 / aspectRatio / 2.0)); 
-
-    // Imaginary coords transformed by scale and offset
-    vec2 worldCoords = imagCoords / u_scale + vec2(map(u_offset.x, 0.0, u_resolution.x, -2.5, 1.0),
-                                                   map(u_offset.y, 0.0, u_resolution.y, -(3.5 / aspectRatio / 2.0), 3.5 / aspectRatio / 2.0));
-
+    vec2 worldCoords = st / u_scale + u_offset;
     return worldCoords;
 }
 
@@ -43,13 +34,20 @@ float iterateMandelbrot() {
     float threshold = 100.0;
     for (int i = 0; i < 100; i++) {
         z = squareImaginary(z) + c;
-        if (length(z) > 2.0) return float(i) / threshold;
+        if (length(z) > 2.0) {
+            return float(i) / threshold;
+
+        }
     }
     return 1.0;
 }
 
 void main () {
     float i = iterateMandelbrot();
-
-    gl_FragColor = vec4(i, i, 1.0, 1.0);
+    if (i == 1.0) {
+        gl_FragColor = vec4(vec3(0.0), 1.0);
+    }
+    else {
+        gl_FragColor = vec4(vec3(i), 1.0);
+    }
 }
