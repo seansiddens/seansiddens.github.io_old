@@ -3,7 +3,7 @@ precision mediump float;
 #endif
 
 #define MAX_STEPS 100
-#define MAX_DIST 100.
+#define MAX_DIST 150.
 #define SURF_DIST .01
 #define DITHER true
 
