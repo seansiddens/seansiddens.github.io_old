@@ -5,7 +5,7 @@ precision mediump float;
 #define MAX_STEPS 100
 #define MAX_DIST 150.
 #define SURF_DIST .01
-#define DITHER true
+#define DITHER false
 
 uniform vec2 u_resolution;
 uniform float u_time;
